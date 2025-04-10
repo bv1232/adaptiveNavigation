@@ -12,7 +12,7 @@ function App() {
   const deviceType = useDeviceContext();
 
   const getLayoutClasses = () => {
-    switch (deviceType) {
+    switch (deviceType.deviceType) {
       case 'smartwatch':
         return 'mt-12 px-1 py-2';
       case 'mobile':

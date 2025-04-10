@@ -1,32 +1,35 @@
-import React from 'react';
 import { useDeviceContext } from '../hooks/useDeviceContext';
-import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
+import { MessageSquare, Mail, Phone, MapPin, Clock } from 'lucide-react';
 
 export function Contact() {
-  const deviceType = useDeviceContext();
+  const { deviceType } = useDeviceContext();
 
-  const handleContactAction = (type: 'phone' | 'email' | 'map') => {
-    switch (type) {
+  const handleContactAction = (action: string) => {
+    switch (action) {
+      case 'email':
+        window.location.href = 'mailto:contact@adaptivenav.com';
+        break;
       case 'phone':
         window.location.href = 'tel:+15551234567';
         break;
-      case 'email':
-        window.location.href = 'mailto:contact@example.com';
-        break;
       case 'map':
-        window.open('https://maps.google.com/?q=123+Tech+Street,+Silicon+Valley,+CA', '_blank');
+        window.open('https://maps.google.com?q=123+Main+St,+San+Francisco,+CA', '_blank');
+        break;
+      default:
         break;
     }
   };
 
-  const getIconSize = () => {
+  const getButtonSize = () => {
     switch (deviceType) {
       case 'smartwatch':
-        return 16;
+        return 'p-2';
       case 'mobile':
-        return 20;
+        return 'p-3';
+      case 'tablet':
+        return 'p-4';
       default:
-        return 24;
+        return 'p-4';
     }
   };
 
@@ -36,19 +39,23 @@ export function Contact() {
         return 'text-xs';
       case 'mobile':
         return 'text-sm';
+      case 'tablet':
+        return 'text-base';
       default:
         return 'text-base';
     }
   };
 
-  const getButtonSize = () => {
+  const getIconSize = () => {
     switch (deviceType) {
       case 'smartwatch':
-        return 'p-2 text-xs';
+        return 16;
       case 'mobile':
-        return 'p-3 text-sm';
+        return 20;
+      case 'tablet':
+        return 24;
       default:
-        return 'p-4 text-base';
+        return 24;
     }
   };
 
@@ -58,91 +65,65 @@ export function Contact() {
         <h1 className={`${deviceType === 'smartwatch' ? 'text-xl' : 'text-4xl'} font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent`}>
           Contact Us
         </h1>
-        <p className={`${deviceType === 'smartwatch' ? 'text-sm' : 'text-lg'} text-gray-600 dark:text-gray-400 max-w-2xl mx-auto`}>
-          Get in touch with us. We'd love to hear from you.
+        <p className={`${deviceType === 'smartwatch' ? 'text-xs' : 'text-lg'} text-gray-600 dark:text-gray-400 max-w-2xl mx-auto`}>
+          Get in touch with our team for any questions or support.
         </p>
       </section>
 
-      <div className={`grid gap-8 ${deviceType === 'smartwatch' ? 'grid-cols-1' : 'md:grid-cols-2'}`}>
-        <div className="space-y-6">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-            <h2 className={`${deviceType === 'smartwatch' ? 'text-lg' : 'text-2xl'} font-semibold mb-4`}>
-              Contact Information
-            </h2>
-            <div className="space-y-4">
-              <button
-                onClick={() => handleContactAction('email')}
-                className={`flex items-center space-x-3 w-full p-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${getTextSize()}`}
-              >
-                <Mail className="text-blue-600 dark:text-blue-400" size={getIconSize()} />
-                <span>contact@example.com</span>
-              </button>
-              <button
-                onClick={() => handleContactAction('phone')}
-                className={`flex items-center space-x-3 w-full p-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${getTextSize()}`}
-              >
-                <Phone className="text-blue-600 dark:text-blue-400" size={getIconSize()} />
-                <span>+1 (555) 123-4567</span>
-              </button>
-              <button
-                onClick={() => handleContactAction('map')}
-                className={`flex items-center space-x-3 w-full p-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${getTextSize()}`}
-              >
-                <MapPin className="text-blue-600 dark:text-blue-400" size={getIconSize()} />
-                <span>123 Tech Street, Silicon Valley, CA</span>
-              </button>
-            </div>
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <h2 className={`${deviceType === 'smartwatch' ? 'text-lg' : 'text-2xl'} font-semibold mb-4`}>
+            Contact Information
+          </h2>
+          <div className="space-y-4">
+            <button
+              onClick={() => handleContactAction('email')}
+              className={`flex items-center space-x-3 w-full ${getButtonSize()} rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors`}
+            >
+              <Mail size={getIconSize()} className="text-blue-600 dark:text-blue-400" />
+              <span className={`${getTextSize()} text-gray-600 dark:text-gray-400`}>
+                contact@adaptivenav.com
+              </span>
+            </button>
+            <button
+              onClick={() => handleContactAction('phone')}
+              className={`flex items-center space-x-3 w-full ${getButtonSize()} rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors`}
+            >
+              <Phone size={getIconSize()} className="text-blue-600 dark:text-blue-400" />
+              <span className={`${getTextSize()} text-gray-600 dark:text-gray-400`}>
+                +1 (555) 123-4567
+              </span>
+            </button>
+            <button
+              onClick={() => handleContactAction('map')}
+              className={`flex items-center space-x-3 w-full ${getButtonSize()} rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors`}
+            >
+              <MapPin size={getIconSize()} className="text-blue-600 dark:text-blue-400" />
+              <span className={`${getTextSize()} text-gray-600 dark:text-gray-400`}>
+                123 Main St, San Francisco, CA
+              </span>
+            </button>
           </div>
         </div>
 
-        <form className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-4">
-          <div>
-            <label className={`block ${getTextSize()} font-medium mb-1`}>
-              Name
-            </label>
-            <input
-              type="text"
-              className={`w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent ${getTextSize()}`}
-              placeholder="Your name"
-            />
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <h2 className={`${deviceType === 'smartwatch' ? 'text-lg' : 'text-2xl'} font-semibold mb-4`}>
+            Business Hours
+          </h2>
+          <div className="space-y-4">
+            <div className={`flex items-center space-x-3 ${getButtonSize()}`}>
+              <Clock size={getIconSize()} className="text-blue-600 dark:text-blue-400" />
+              <div>
+                <p className={`${getTextSize()} text-gray-600 dark:text-gray-400`}>
+                  Monday - Friday: 9:00 AM - 6:00 PM
+                </p>
+                <p className={`${getTextSize()} text-gray-600 dark:text-gray-400`}>
+                  Saturday - Sunday: Closed
+                </p>
+              </div>
+            </div>
           </div>
-          <div>
-            <label className={`block ${getTextSize()} font-medium mb-1`}>
-              Email
-            </label>
-            <input
-              type="email"
-              className={`w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent ${getTextSize()}`}
-              placeholder="your@email.com"
-            />
-          </div>
-          <div>
-            <label className={`block ${getTextSize()} font-medium mb-1`}>
-              Message
-            </label>
-            <textarea
-              className={`w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent ${getTextSize()}`}
-              rows={deviceType === 'smartwatch' ? 2 : 4}
-              placeholder="Your message"
-            ></textarea>
-          </div>
-          <div className="flex items-center space-x-2">
-            <button
-              type="submit"
-              className={`bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors ${getButtonSize()}`}
-            >
-              Send Message
-            </button>
-            <button
-              type="button"
-              onClick={() => handleContactAction('phone')}
-              className={`bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors ${getButtonSize()} flex items-center space-x-2`}
-            >
-              <Phone size={getIconSize()} />
-              <span>Call Now</span>
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );
