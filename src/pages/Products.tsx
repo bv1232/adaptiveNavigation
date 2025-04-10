@@ -1,6 +1,5 @@
-import React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronLeft, Star, ShoppingCart, Heart, TrendingUp, Clock, Award } from 'lucide-react';
+import { ChevronLeft, Star } from 'lucide-react';
 import { useDeviceContext } from '../hooks/useDeviceContext';
 
 interface Product {

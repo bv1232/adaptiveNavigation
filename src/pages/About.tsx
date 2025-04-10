@@ -1,7 +1,6 @@
-import React from 'react';
 import { useDeviceContext } from '../hooks/useDeviceContext';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronLeft, Users, Award, Heart, Clock, Building, Briefcase } from 'lucide-react';
+import { ChevronLeft, Award, Heart, Clock, Building, Briefcase } from 'lucide-react';
 import { Milestones } from './Milestones';
 
 interface TeamMember {
