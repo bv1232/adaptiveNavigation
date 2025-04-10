@@ -34,16 +34,12 @@ export function useDeviceContext() {
       const pixelRatio = window.devicePixelRatio;
       const isLandscape = width > height;
       
-      // Check for touch capabilities
       const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       
-      // Check for mouse capabilities
       const hasMouse = window.matchMedia('(pointer: fine)').matches;
       
-      // Check for hover capabilities
       const hasHover = window.matchMedia('(hover: hover)').matches;
       
-      // Check for keyboard capabilities
       const hasKeyboard = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
       setCapabilities({
@@ -56,7 +52,6 @@ export function useDeviceContext() {
         isLandscape,
       });
 
-      // Determine device type based on multiple factors
       if (width <= 280 || (width <= 320 && hasTouch && !hasMouse)) {
         setDeviceType('smartwatch');
       } else if (
